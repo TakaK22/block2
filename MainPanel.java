@@ -83,7 +83,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, Runnable
 			ball.move();
 			
 			// もしラケットと衝突したらボールをバウンド
-			if(racket.collideWith(ball)){
+			if(racket.collideWith(ball)!= Racket.NO_COLLISION){
 				ball.boundY();
 			}
 			
