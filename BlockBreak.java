@@ -1,25 +1,23 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class BlockBreak extends JFrame
-{
-	public BlockBreak(){
-		// ƒ^ƒCƒgƒ‹‚ğİ’è
-		setTitle("BlockBreak");
-		
-		// ƒƒCƒ“ƒpƒlƒ‹‚ğì¬‚µ‚ÄƒtƒŒ[ƒ€‚É’Ç‰Á
-		MainPanel2 panel = new MainPanel2();
-		Container contentPane = getContentPane();
-		contentPane.add(panel);
-		
-		// ƒpƒlƒ‹ƒTƒCƒY‚É‡‚í‚¹‚ÄƒtƒŒ[ƒ€ƒTƒCƒY‚ğ©“®’²®
-		pack();
-	}
-	
-	public static void main(String args[])
-	{
-		BlockBreak frame = new BlockBreak();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
+public class BlockBreak extends JFrame {
+    public BlockBreak() {
+        // ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨­å®š
+        setTitle("BlockBreak");
+
+        // ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ«ã‚’ä½œæˆã—ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã«è¿½åŠ 
+        MainPanel2 panel = new MainPanel2();
+        Container contentPane = getContentPane();
+        contentPane.add(panel);
+
+        // ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚ºã«åˆã‚ã›ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã‚µã‚¤ã‚ºã‚’è‡ªå‹•èª¿æ•´
+        pack();
+    }
+
+    public static void main(String args[]) {
+        BlockBreak frame = new BlockBreak();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
 }

@@ -4,8 +4,8 @@ public class Block {
     public static final int WIDTH = 40;
     public static final int HEIGHT = 16;
 
-    // ƒ{[ƒ‹‚Ì“–‚½‚èˆÊ’u
-    public static final int NO_COLLISION = 0; // –¢Õ“Ë
+    // ãƒœãƒ¼ãƒ«ã®å½“ãŸã‚Šä½ç½®
+    public static final int NO_COLLISION = 0; // æœªè¡çª
     public static final int DOWN = 1;
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
@@ -15,12 +15,12 @@ public class Block {
     public static final int UP_LEFT = 7;
     public static final int UP_RIGHT = 8;
 
-//    EEE
+    // ãƒ»ãƒ»ãƒ»
 
-    // ˆÊ’ui¶ã‹÷‚ÌÀ•Wj
+    // ä½ç½®ï¼ˆå·¦ä¸Šéš…ã®åº§æ¨™ï¼‰
     private int x, y;
 
-    // ƒ{[ƒ‹‚ª“–‚½‚Á‚ÄÁ‚³‚ê‚½‚©
+    // ãƒœãƒ¼ãƒ«ãŒå½“ãŸã£ã¦æ¶ˆã•ã‚ŒãŸã‹
     private boolean isDeleted;
 
     public Block(int x, int y) {
@@ -30,7 +30,7 @@ public class Block {
     }
 
     /**
-     * ƒuƒƒbƒN‚ğ•`‰æ
+     * ãƒ–ãƒ­ãƒƒã‚¯ã‚’æç”»
      * 
      * @param g
      */
@@ -38,27 +38,27 @@ public class Block {
         g.setColor(Color.CYAN);
         g.fillRect(x, y, WIDTH, HEIGHT);
 
-        // ˜gü‚ğ•`‰æ
+        // æ ç·šã‚’æç”»
         g.setColor(Color.BLACK);
         g.drawRect(x, y, WIDTH, HEIGHT);
     }
 
     /**
-     * ƒuƒƒbƒN‚ğÁ‹
+     * ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¶ˆå»
      * 
      */
     public void delete() {
-        // TODO: ‚±‚±‚ÅƒuƒƒbƒN‚ª‰ó‚ê‚éŒø‰Ê‰¹
-        // TODO: ‚±‚±‚Å”hè‚ÈƒAƒNƒVƒ‡ƒ“
+        // TODO: ã“ã“ã§ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹åŠ¹æœéŸ³
+        // TODO: ã“ã“ã§æ´¾æ‰‹ãªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 
         isDeleted = true;
     }
-	
+
     /**
-     * ƒ{[ƒ‹‚ÆÕ“Ë‚µ‚½‚©
+     * ãƒœãƒ¼ãƒ«ã¨è¡çªã—ãŸã‹
      * 
-     * @param ball ƒ{[ƒ‹
-     * @return Õ“ËˆÊ’u
+     * @param ball ãƒœãƒ¼ãƒ«
+     * @return è¡çªä½ç½®
      */
     public int collideWith(Ball ball) {
         Rectangle blockRect = new Rectangle(x, y, WIDTH, HEIGHT);
@@ -66,40 +66,38 @@ public class Block {
         int ballX = ball.getX();
         int ballY = ball.getY();
         int ballSize = ball.getSize();
-        if (blockRect.contains(ballX, ballY)
-                && blockRect.contains(ballX + ballSize, ballY)) {
-            // ƒuƒƒbƒN‚Ì‰º‚©‚çÕ“Ëƒ{[ƒ‹‚Ì¶ãE‰Eã‚Ì“_‚ªƒuƒƒbƒN“à
+        if (blockRect.contains(ballX, ballY) && blockRect.contains(ballX + ballSize, ballY)) {
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸‹ã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å·¦ä¸Šãƒ»å³ä¸Šã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return DOWN;
         } else if (blockRect.contains(ballX + ballSize, ballY)
                 && blockRect.contains(ballX + ballSize, ballY + ballSize)) {
-            // ƒuƒƒbƒN‚Ì¶‚©‚çÕ“Ëƒ{[ƒ‹‚Ì‰EãE‰E‰º‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å·¦ã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å³ä¸Šãƒ»å³ä¸‹ã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return LEFT;
-        } else if (blockRect.contains(ballX, ballY)
-                && blockRect.contains(ballX, ballY + ballSize)) {
-            // ƒuƒƒbƒN‚Ì‰E‚©‚çÕ“Ëƒ{[ƒ‹‚Ì¶ãE¶‰º‚Ì“_‚ªƒuƒƒbƒN“à
+        } else if (blockRect.contains(ballX, ballY) && blockRect.contains(ballX, ballY + ballSize)) {
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å³ã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å·¦ä¸Šãƒ»å·¦ä¸‹ã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return RIGHT;
         } else if (blockRect.contains(ballX, ballY + ballSize)
                 && blockRect.contains(ballX + ballSize, ballY + ballSize)) {
-            // ƒuƒƒbƒN‚Ìã‚©‚çÕ“Ëƒ{[ƒ‹‚Ì¶‰ºE‰E‰º‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸Šã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å·¦ä¸‹ãƒ»å³ä¸‹ã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return UP;
         } else if (blockRect.contains(ballX + ballSize, ballY)) {
-            // ƒuƒƒbƒN‚Ì¶‰º‚©‚çÕ“Ëƒ{[ƒ‹‚Ì‰Eã‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å·¦ä¸‹ã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å³ä¸Šã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return DOWN_LEFT;
         } else if (blockRect.contains(ballX, ballY)) {
-            // ƒuƒƒbƒN‚Ì‰E‰º‚©‚çÕ“Ëƒ{[ƒ‹‚Ì¶ã‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å³ä¸‹ã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å·¦ä¸Šã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return DOWN_RIGHT;
         } else if (blockRect.contains(ballX + ballSize, ballY + ballSize)) {
-            // ƒuƒƒbƒN‚Ì¶ã‚©‚çÕ“Ëƒ{[ƒ‹‚Ì‰E‰º‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å·¦ä¸Šã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å³ä¸‹ã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return UP_LEFT;
         } else if (blockRect.contains(ballX, ballY + ballSize)) {
-            // ƒuƒƒbƒN‚Ì‰Eã‚©‚çÕ“Ëƒ{[ƒ‹‚Ì¶‰º‚Ì“_‚ªƒuƒƒbƒN“à
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å³ä¸Šã‹ã‚‰è¡çªï¼ãƒœãƒ¼ãƒ«ã®å·¦ä¸‹ã®ç‚¹ãŒãƒ–ãƒ­ãƒƒã‚¯å†…
             return UP_RIGHT;
         }
 
         return NO_COLLISION;
     }
-	
-	public boolean isDeleted(){
-		return isDeleted;
-	}
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 }

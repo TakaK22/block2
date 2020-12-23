@@ -2,39 +2,38 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements MouseMotionListener, Runnable
-{
-	// ƒpƒlƒ‹ƒTƒCƒY
-	public static final int WIDTH = 360;
-	public static final int HEIGHT = 480;
-	
-	private Racket racket; //ƒ‰ƒPƒbƒg
-	private Ball ball;
-	
-    // ƒuƒƒbƒN‚Ìs”
+public class MainPanel extends JPanel implements MouseMotionListener, Runnable {
+    // ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚º
+    public static final int WIDTH = 360;
+    public static final int HEIGHT = 480;
+
+    private Racket racket; // ãƒ©ã‚±ãƒƒãƒˆ
+    private Ball ball;
+
+    // ãƒ–ãƒ­ãƒƒã‚¯ã®è¡Œæ•°
     private static final int NUM_BLOCK_ROW = 10;
-    // ƒuƒƒbƒN‚Ì—ñ”
+    // ãƒ–ãƒ­ãƒƒã‚¯ã®åˆ—æ•°
     private static final int NUM_BLOCK_COL = 7;
-    // ƒuƒƒbƒN”
+    // ãƒ–ãƒ­ãƒƒã‚¯æ•°
     private static final int NUM_BLOCK = NUM_BLOCK_ROW * NUM_BLOCK_COL;
 
-    private Block[] block; // ƒuƒƒbƒN
+    private Block[] block; // ãƒ–ãƒ­ãƒƒã‚¯
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒXƒŒƒbƒh
-	Thread thread;
-	public MainPanel()
-	{
-		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		addMouseMotionListener(this);
-		
-		// ƒ‰ƒPƒbƒg‚ğ¶¬
-		racket = new Racket();
-		// ƒ{[ƒ‹‚ğ¶¬
-		ball = new Ball();
-		
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰
+    Thread thread;
+
+    public MainPanel() {
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        addMouseMotionListener(this);
+
+        // ãƒ©ã‚±ãƒƒãƒˆã‚’ç”Ÿæˆ
+        racket = new Racket();
+        // ãƒœãƒ¼ãƒ«ã‚’ç”Ÿæˆ
+        ball = new Ball();
+
         block = new Block[NUM_BLOCK];
 
-        // ƒuƒƒbƒN‚ğ•À‚×‚é
+        // ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä¸¦ã¹ã‚‹
         for (int i = 0; i < NUM_BLOCK_ROW; i++) {
             for (int j = 0; j < NUM_BLOCK_COL; j++) {
                 int x = j * Block.WIDTH + Block.WIDTH;
@@ -43,94 +42,93 @@ public class MainPanel extends JPanel implements MouseMotionListener, Runnable
             }
         }
 
-		thread = new Thread(this);
-		thread.start();
-	}
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		//”wŒi
-		g.setColor(Color.BLACK);
-		g.fillRect(0,0,WIDTH,HEIGHT);
-		
-		racket.draw(g);
-		ball.draw(g);
-		for(int i=0; i < NUM_BLOCK; i++){
-			if(!block[i].isDeleted())
-				block[i].draw(g);
-		}
-	}
-	
-	//ƒ}ƒEƒX‚ğ“®‚©‚µ‚½ŒÄ‚Ño‚³‚ê‚é
-	public void mouseMoved(MouseEvent e)
-	{
-		int x = e.getX(); //ƒ}ƒEƒX‚ÌXÀ•W
-		racket.move(x); //ƒ‰ƒPƒbƒg‚ğˆÚ“®
-		repaint();
-	}
-	
-	//ƒ}ƒEƒX‚ğƒhƒ‰ƒbƒO‚µ‚½ŒÄ‚Ño‚³‚ê‚é
-	public void mouseDragged(MouseEvent e){
-	}
-	
-	/**
-	 * ƒQ[ƒ€ƒ‹[ƒv
-	 *
-	 */
-	public void run(){
-		System.out.println("run");
-		while(true){
-			// ƒ{[ƒ‹‚ÌˆÚ“®
-			ball.move();
-			
-			// ‚à‚µƒ‰ƒPƒbƒg‚ÆÕ“Ë‚µ‚½‚çƒ{[ƒ‹‚ğƒoƒEƒ“ƒh
-			if(racket.collideWith(ball)!= Racket.NO_COLLISION){
-				ball.boundY();
-			}
-			
-            // ƒuƒƒbƒN‚Æƒ{[ƒ‹‚ÌÕ“Ëˆ—
-			blockChec();
-			
-			repaint();
-			
-			try{
-				Thread.sleep(20);
-			}
-			catch(InterruptedException e){
-				e.printStackTrace();
-			}
-		}
-	}
+        thread = new Thread(this);
+        thread.start();
+    }
 
-	public void blockChec(){
-            // ƒuƒƒbƒN‚Æƒ{[ƒ‹‚ÌÕ“Ëˆ—
-            for (int i = 0; i < NUM_BLOCK; i++) {
-                // ‚·‚Å‚ÉÁ‚¦‚Ä‚¢‚éƒuƒƒbƒN‚Í–³‹
-                if (block[i].isDeleted())
-                    continue;
-                // ƒuƒƒbƒN‚Ì“–‚½‚Á‚½ˆÊ’u‚ğŒvZ
-                int collidePos = block[i].collideWith(ball);
-                if (collidePos != Block.NO_COLLISION) { // ƒuƒƒbƒN‚É“–‚½‚Á‚Ä‚¢‚½‚ç
-                    block[i].delete();
-                    // ƒ{[ƒ‹‚Ì“–‚½‚Á‚½ˆÊ’u‚©‚çƒ{[ƒ‹‚Ì”½Ë•ûŒü‚ğŒvZ
-                    switch (collidePos) {
-                        case Block.DOWN :
-                        case Block.UP :
-                            ball.boundY();
-                            break;
-                        case Block.LEFT :
-                        case Block.RIGHT :
-                            ball.boundX();
-                            break;
-                        case Block.UP_LEFT :
-                        case Block.UP_RIGHT :
-                        case Block.DOWN_LEFT :
-                        case Block.DOWN_RIGHT :
-                            ball.boundXY();
-                            break;
-                    }
-                    break; // 1‰ñ‚É‰ó‚¹‚éƒuƒƒbƒN‚Í1‚Â
-                }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // èƒŒæ™¯
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        racket.draw(g);
+        ball.draw(g);
+        for (int i = 0; i < NUM_BLOCK; i++) {
+            if (!block[i].isDeleted())
+                block[i].draw(g);
+        }
+    }
+
+    // ãƒã‚¦ã‚¹ã‚’å‹•ã‹ã—ãŸæ™‚å‘¼ã³å‡ºã•ã‚Œã‚‹
+    public void mouseMoved(MouseEvent e) {
+        int x = e.getX(); // ãƒã‚¦ã‚¹ã®Xåº§æ¨™
+        racket.move(x); // ãƒ©ã‚±ãƒƒãƒˆã‚’ç§»å‹•
+        repaint();
+    }
+
+    // ãƒã‚¦ã‚¹ã‚’ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸæ™‚å‘¼ã³å‡ºã•ã‚Œã‚‹
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    /**
+     * ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
+     *
+     */
+    public void run() {
+        System.out.println("run");
+        while (true) {
+            // ãƒœãƒ¼ãƒ«ã®ç§»å‹•
+            ball.move();
+
+            // ã‚‚ã—ãƒ©ã‚±ãƒƒãƒˆã¨è¡çªã—ãŸã‚‰ãƒœãƒ¼ãƒ«ã‚’ãƒã‚¦ãƒ³ãƒ‰
+            if (racket.collideWith(ball) != Racket.NO_COLLISION) {
+                ball.boundY();
             }
-	}
+
+            // ãƒ–ãƒ­ãƒƒã‚¯ã¨ãƒœãƒ¼ãƒ«ã®è¡çªå‡¦ç†
+            blockChec();
+
+            repaint();
+
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void blockChec() {
+        // ãƒ–ãƒ­ãƒƒã‚¯ã¨ãƒœãƒ¼ãƒ«ã®è¡çªå‡¦ç†
+        for (int i = 0; i < NUM_BLOCK; i++) {
+            // ã™ã§ã«æ¶ˆãˆã¦ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã¯ç„¡è¦–
+            if (block[i].isDeleted())
+                continue;
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®å½“ãŸã£ãŸä½ç½®ã‚’è¨ˆç®—
+            int collidePos = block[i].collideWith(ball);
+            if (collidePos != Block.NO_COLLISION) { // ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã£ã¦ã„ãŸã‚‰
+                block[i].delete();
+                // ãƒœãƒ¼ãƒ«ã®å½“ãŸã£ãŸä½ç½®ã‹ã‚‰ãƒœãƒ¼ãƒ«ã®åå°„æ–¹å‘ã‚’è¨ˆç®—
+                switch (collidePos) {
+                    case Block.DOWN:
+                    case Block.UP:
+                        ball.boundY();
+                        break;
+                    case Block.LEFT:
+                    case Block.RIGHT:
+                        ball.boundX();
+                        break;
+                    case Block.UP_LEFT:
+                    case Block.UP_RIGHT:
+                    case Block.DOWN_LEFT:
+                    case Block.DOWN_RIGHT:
+                        ball.boundXY();
+                        break;
+                }
+                break; // 1å›ã«å£Šã›ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã¯1ã¤
+            }
+        }
+    }
 
 }

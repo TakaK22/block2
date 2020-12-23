@@ -1,89 +1,78 @@
 import java.awt.*;
 
-public class Racket
-{
-	// ƒ‰ƒPƒbƒg‚ÌƒTƒCƒY
-	public static final int WIDTH = 80;
-	public static final int HEIGHT = 5;
-	public static final int CENTER_SIZE = 10;
-	// ƒ{[ƒ‹‚Ì“–‚½‚èˆÊ’u
-    public static final int NO_COLLISION = 0;  // –¢Õ“Ë
+public class Racket {
+    // ãƒ©ã‚±ãƒƒãƒˆã®ã‚µã‚¤ã‚º
+    public static final int WIDTH = 80;
+    public static final int HEIGHT = 5;
+    public static final int CENTER_SIZE = 10;
+    // ãƒœãƒ¼ãƒ«ã®å½“ãŸã‚Šä½ç½®
+    public static final int NO_COLLISION = 0; // æœªè¡çª
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
-	public static final int CENTER = 3;
+    public static final int CENTER = 3;
 
-	//ƒ‰ƒPƒbƒg‚Ì’†SˆÊ’u
-	private int centerPos;
-	
-	public Racket()
-	{
-		//ƒ‰ƒPƒbƒg‚ÌˆÊ’u‚ğ‰æ–Ê‚Ì^‚ñ’†‚Å‰Šú‰»
-		centerPos = MainPanel.WIDTH / 2;
-	}
-	
-	/**
-	 * ƒ‰ƒPƒbƒg‚Ì•`‰æ
-	 *
-	 * @param g
-	 */
-	public void draw(Graphics g){
-		g.setColor(Color.WHITE);
-		g.fillRect(centerPos - WIDTH / 2, MainPanel.HEIGHT - HEIGHT, WIDTH, HEIGHT);
-	}
-	
-	
-	/**
-	 * ƒ‰ƒPƒbƒg‚ÌˆÚ“®
-	 *
-	 * @param pos ˆÚ“®æÀ•W
-	 */
-	public void move(int pos){
-		centerPos = pos;
-		
-		// ƒ‰ƒPƒbƒg‚ª‰æ–Ê’[‚©‚ç”ò‚Ño‚³‚È‚¢‚æ‚¤‚É‚·‚é
-		if(centerPos < WIDTH / 2) { // ¶’[
-			centerPos = WIDTH / 2;
-		}
-		else if(centerPos > MainPanel.WIDTH - WIDTH / 2){ // ‰E’[
-			centerPos = MainPanel.WIDTH - WIDTH / 2;
-		}
-	}
-	
-	/**
-	 * ƒ{[ƒ‹‚É“–‚½‚Á‚½‚çtrue‚ğ•Ô‚·
-	 *
-	 * @param ball ƒ{[ƒ‹
-	 * @return ƒ{[ƒ‹‚É“–‚½‚Á‚½‚çtrue
-	 */
-	public int collideWith(Ball ball){
-        // ƒ‰ƒPƒbƒg‚Ì‹éŒ`
-        Rectangle racketRectLeft = new Rectangle(
-                centerPos - WIDTH / 2, MainPanel.HEIGHT - HEIGHT,
-        		(WIDTH - CENTER_SIZE) / 2, HEIGHT);
-        Rectangle racketRectRight = new Rectangle(
-                centerPos + CENTER_SIZE / 2, MainPanel.HEIGHT - HEIGHT,
-                WIDTH / 2, HEIGHT);
-        Rectangle racketRectCenter = new Rectangle(
-                centerPos - CENTER_SIZE / 2, MainPanel.HEIGHT - HEIGHT,
+    // ãƒ©ã‚±ãƒƒãƒˆã®ä¸­å¿ƒä½ç½®
+    private int centerPos;
+
+    public Racket() {
+        // ãƒ©ã‚±ãƒƒãƒˆã®ä½ç½®ã‚’ç”»é¢ã®çœŸã‚“ä¸­ã§åˆæœŸåŒ–
+        centerPos = MainPanel.WIDTH / 2;
+    }
+
+    /**
+     * ãƒ©ã‚±ãƒƒãƒˆã®æç”»
+     *
+     * @param g
+     */
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect(centerPos - WIDTH / 2, MainPanel.HEIGHT - HEIGHT, WIDTH, HEIGHT);
+    }
+
+    /**
+     * ãƒ©ã‚±ãƒƒãƒˆã®ç§»å‹•
+     *
+     * @param pos ç§»å‹•å…ˆåº§æ¨™
+     */
+    public void move(int pos) {
+        centerPos = pos;
+
+        // ãƒ©ã‚±ãƒƒãƒˆãŒç”»é¢ç«¯ã‹ã‚‰é£›ã³å‡ºã•ãªã„ã‚ˆã†ã«ã™ã‚‹
+        if (centerPos < WIDTH / 2) { // å·¦ç«¯
+            centerPos = WIDTH / 2;
+        } else if (centerPos > MainPanel.WIDTH - WIDTH / 2) { // å³ç«¯
+            centerPos = MainPanel.WIDTH - WIDTH / 2;
+        }
+    }
+
+    /**
+     * ãƒœãƒ¼ãƒ«ã«å½“ãŸã£ãŸã‚‰trueã‚’è¿”ã™
+     *
+     * @param ball ãƒœãƒ¼ãƒ«
+     * @return ãƒœãƒ¼ãƒ«ã«å½“ãŸã£ãŸã‚‰true
+     */
+    public int collideWith(Ball ball) {
+        // ãƒ©ã‚±ãƒƒãƒˆã®çŸ©å½¢
+        Rectangle racketRectLeft = new Rectangle(centerPos - WIDTH / 2, MainPanel.HEIGHT - HEIGHT,
+                (WIDTH - CENTER_SIZE) / 2, HEIGHT);
+        Rectangle racketRectRight = new Rectangle(centerPos + CENTER_SIZE / 2, MainPanel.HEIGHT - HEIGHT, WIDTH / 2,
+                HEIGHT);
+        Rectangle racketRectCenter = new Rectangle(centerPos - CENTER_SIZE / 2, MainPanel.HEIGHT - HEIGHT,
                 centerPos + CENTER_SIZE / 2, HEIGHT);
 
-        // ƒ{[ƒ‹‚Ì‹éŒ`
-        Rectangle ballRect = new Rectangle(
-                ball.getX(), ball.getY(),
-                ball.getSize(), ball.getSize());
+        // ãƒœãƒ¼ãƒ«ã®çŸ©å½¢
+        Rectangle ballRect = new Rectangle(ball.getX(), ball.getY(), ball.getSize(), ball.getSize());
 
-        // ƒ‰ƒPƒbƒg‚Æƒ{[ƒ‹‚Ì‹éŒ`—Ìˆæ‚ªd‚È‚Á‚½‚ç“–‚½‚Á‚Ä‚¢‚é
+        // ãƒ©ã‚±ãƒƒãƒˆã¨ãƒœãƒ¼ãƒ«ã®çŸ©å½¢é ˜åŸŸãŒé‡ãªã£ãŸã‚‰å½“ãŸã£ã¦ã„ã‚‹
         if (racketRectLeft.intersects(ballRect)) {
             return LEFT;
-        }
-		else if (racketRectRight.intersects(ballRect)) {
+        } else if (racketRectRight.intersects(ballRect)) {
             return RIGHT;
+        } else if (racketRectCenter.intersects(ballRect)) {
+            return CENTER;
         }
-		else if(racketRectCenter.intersects(ballRect)){
-			return CENTER;
-		}
 
         return NO_COLLISION;
 
-	}
+    }
 }

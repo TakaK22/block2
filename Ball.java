@@ -4,135 +4,139 @@ import java.awt.Image;
 import java.util.Random;
 import javax.swing.*;
 
-public class Ball
-{
-	// d—Í
-	public static final double GRAVITY = 0.1;
-	// ƒTƒCƒY
-	private static final int SIZE = 11;
-	// ˆÊ’u(ƒ{[ƒ‹‚ğˆÍ‚Ş’ZŒ`‚Ì¶ã‹÷)
-	private int x, y;
-	// ‘¬“x
-	private double vx, vy;
-	
-	// ƒ{[ƒ‹ƒCƒ[ƒW
-	private Image ballImage;
+public class Ball {
+    // é‡åŠ›
+    public static final double GRAVITY = 0.1;
+    // ã‚µã‚¤ã‚º
+    private static final int SIZE = 11;
+    // ä½ç½®(ãƒœãƒ¼ãƒ«ã‚’å›²ã‚€çŸ­å½¢ã®å·¦ä¸Šéš…)
+    private int x, y;
+    // é€Ÿåº¦
+    private double vx, vy;
 
-	// ŠÑ’Ê‘®«
-	private boolean pierce;
-	// —””­¶Ší
-	private Random rand;
-	
-	public Ball(){
-		loadImage();
-		rand = new Random(System.currentTimeMillis());
-		
-		// ˆÊ’u‚ğ‰Šú‰»
-		x = rand.nextInt(MainPanel.WIDTH - SIZE);
-		y = 0;
-		
-		// ‘¬“x‚ğ‰Šú‰»
-		vx = 5;
-		vy = 0;
-		
-		pierce = false;
-	}
-	
-	/**
-	 * ƒ{[ƒ‹‚ğ•`‰æ
-	 *
-	 * @param g
-	 */
-	public void draw(Graphics g){
-//		g.setColor(Color.YELLOW);
-//		g.fillOval(x, y, SIZE, SIZE);
-		int ix, iy;
-		if(pierce){
-			ix = SIZE;
-		}
-		else{
-			ix = 0;
-		}
-		iy = 0;
-		g.drawImage(ballImage, x, y, x + SIZE, y + SIZE,
-							ix, iy, ix + SIZE, SIZE, null);
-	}
-	
-	/**
-	 * ƒCƒ[ƒW‚ğƒ[ƒh‚·‚é
-	 */
-	private void loadImage(){
-		// ƒCƒ[ƒW‚ğ“Ç‚İ‚Ş
-		ImageIcon icon = new ImageIcon(getClass().getResource("image/ball1.png"));
-		ballImage = icon.getImage();
-		
-		// •‚Æ‚‚³‚ğƒZƒbƒg‚·‚é
-//		SIZE = icon.getIconWidth();
-	}
-	
-	/**
-	 * ƒ{[ƒ‹‚ÌˆÚ“®
-	 *
-	 */
-	public void move(){
-		vy += GRAVITY;
-		
-		x += vx;
-		y += vy;
-		
-		// ¶‰E‚Ì•Ç‚É‚Ô‚Â‚©‚Á‚½ê‡‚ÉƒoƒEƒ“ƒh
-		if(x < 0 || x > MainPanel.WIDTH - SIZE){
-			vx = -vx;
-		}
-		// “Vˆä‚É‚Ô‚Â‚©‚Á‚½ê‡‚ÉƒoƒEƒ“ƒh
-		if(y < 0){
-			vy = -vy;
-		}
-		if(y > MainPanel.HEIGHT - SIZE){
-			vy = -vy;
-		}
-	}
-	
-	/**
-	 * X•ûŒü‚ÌƒoƒEƒ“ƒh
-	 */
-	public void boundX(){
-		vx = -vx;
-	}
-	/**
-	 * Y•ûŒü‚ÌƒoƒEƒ“ƒh
-	 */
-	public void boundY(){
-		vy = -vy;
-	}
-	/**
-	 * Î‚ß‚ÉƒoƒEƒ“ƒh
-	 */
-	public void boundXY(){
-		vx = -vx;
-		vy = -vy;
-	}
-	
-	
-	public int getSize(){
-		return SIZE;
-	}
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
-	public double getVX(){
-		return vx;
-	}
-	public double getVY(){
-		return vy;
-	}
-	public void setPierce(boolean bl){
-		pierce = bl;
-	}
-	public boolean getPierce(){
-		return pierce;
-	}
+    // ãƒœãƒ¼ãƒ«ã‚¤ãƒ¡ãƒ¼ã‚¸
+    private Image ballImage;
+
+    // è²«é€šå±æ€§
+    private boolean pierce;
+    // ä¹±æ•°ç™ºç”Ÿå™¨
+    private Random rand;
+
+    public Ball() {
+        loadImage();
+        rand = new Random(System.currentTimeMillis());
+
+        // ä½ç½®ã‚’åˆæœŸåŒ–
+        x = rand.nextInt(MainPanel.WIDTH - SIZE);
+        y = 0;
+
+        // é€Ÿåº¦ã‚’åˆæœŸåŒ–
+        vx = 5;
+        vy = 0;
+
+        pierce = false;
+    }
+
+    /**
+     * ãƒœãƒ¼ãƒ«ã‚’æç”»
+     *
+     * @param g
+     */
+    public void draw(Graphics g) {
+        // g.setColor(Color.YELLOW);
+        // g.fillOval(x, y, SIZE, SIZE);
+        int ix, iy;
+        if (pierce) {
+            ix = SIZE;
+        } else {
+            ix = 0;
+        }
+        iy = 0;
+        g.drawImage(ballImage, x, y, x + SIZE, y + SIZE, ix, iy, ix + SIZE, SIZE, null);
+    }
+
+    /**
+     * ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
+     */
+    private void loadImage() {
+        // ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’èª­ã¿è¾¼ã‚€
+        ImageIcon icon = new ImageIcon(getClass().getResource("image/ball1.png"));
+        ballImage = icon.getImage();
+
+        // å¹…ã¨é«˜ã•ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+        // SIZE = icon.getIconWidth();
+    }
+
+    /**
+     * ãƒœãƒ¼ãƒ«ã®ç§»å‹•
+     *
+     */
+    public void move() {
+        vy += GRAVITY;
+
+        x += vx;
+        y += vy;
+
+        // å·¦å³ã®å£ã«ã¶ã¤ã‹ã£ãŸå ´åˆã«ãƒã‚¦ãƒ³ãƒ‰
+        if (x < 0 || x > MainPanel.WIDTH - SIZE) {
+            vx = -vx;
+        }
+        // å¤©äº•ã«ã¶ã¤ã‹ã£ãŸå ´åˆã«ãƒã‚¦ãƒ³ãƒ‰
+        if (y < 0) {
+            vy = -vy;
+        }
+        if (y > MainPanel.HEIGHT - SIZE) {
+            vy = -vy;
+        }
+    }
+
+    /**
+     * Xæ–¹å‘ã®ãƒã‚¦ãƒ³ãƒ‰
+     */
+    public void boundX() {
+        vx = -vx;
+    }
+
+    /**
+     * Yæ–¹å‘ã®ãƒã‚¦ãƒ³ãƒ‰
+     */
+    public void boundY() {
+        vy = -vy;
+    }
+
+    /**
+     * æ–œã‚ã«ãƒã‚¦ãƒ³ãƒ‰
+     */
+    public void boundXY() {
+        vx = -vx;
+        vy = -vy;
+    }
+
+    public int getSize() {
+        return SIZE;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public double getVX() {
+        return vx;
+    }
+
+    public double getVY() {
+        return vy;
+    }
+
+    public void setPierce(boolean bl) {
+        pierce = bl;
+    }
+
+    public boolean getPierce() {
+        return pierce;
+    }
 }
