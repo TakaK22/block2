@@ -11,6 +11,6 @@ Execution environment: Java SE 6
 ## Usage
 
 ``` bash
-javac BlockBreak.java
+javac -encoding utf-8 BlockBreak.java
 java BlockBreak
 ```
